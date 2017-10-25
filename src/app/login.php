@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-$app->add($container->get('csrf'));
 
 $app->get('/login',function ($request, $response, $args) use($app){
     $session = $this->get('session');
@@ -31,7 +30,7 @@ $app->get('/logout',function ($request, $response, $args) {
     $session = $this->get('session');
     $session->destroy();
     return $response->withStatus(301)->withHeader('Location', '/');
-})->add($container->get('csrf'));
+});
 
 $app->get('/',function ($request, $response, $args) {
     $session = $this->get('session');

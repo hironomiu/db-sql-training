@@ -43,6 +43,3 @@ $container['session'] = function() {
         return new \Ap\Session();
 };
 
-$container['csrf'] = function ($c) {
-        return new \Slim\Csrf\Guard;
-};
