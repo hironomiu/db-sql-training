@@ -7,4 +7,3 @@ public_html/bower_components
 src/config.php
 ddl/backup.dump.gz
 src/cache/*/
-.bowerrc
