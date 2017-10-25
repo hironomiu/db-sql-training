@@ -1,0 +1,45 @@
+{% extends "head.twig" %}
+{% block body %}
+      <div class="row marketing">
+        <div class="col-sm-4">
+          <div class=" well" style="background-color:#BFE0EC;">
+          <h5 style="margin:3px">Name</h5>
+          {% block username %}{% endblock %}
+          <h5 style="margin:3px">Messages</h5>
+          {% block message_count %}{% endblock %}
+          <h5 style="margin:3px">follow</h5>
+          {% block follow %}{% endblock %}
+          <h5 style="margin:3px">follower</h5>
+          {% block follower %}{% endblock %}
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <div class="well">
+            <form method="POST" action="{% block post_url %}{% endblock %}" >
+              <div class="form-group">
+                <textarea class="form-control" placeholder="Post a Message" rows="3" name="message"></textarea>
+                <input type="hidden" name="{{ name_key }}" value="{{ name }}">
+                <input type="hidden" name="{{ value_key }}" value="{{ value }}">
+                <div class="text-right"> 
+                <button type="submit" class="btn btn-info" id="post-button" style="margin:5px">Post</button>
+                </div>
+              </div>
+            </form>
+          {% block content %}{% endblock %}
+          </div>
+        </div>
+      </div>
+    <script>
+        $("#post-button").click(function(){
+            $.ajax({
+                method: "GET",
+                url: "/messages",
+                dataType: 'json',
+            })
+            .done(function( msg ) {
+                var nesting = $("#ul").append('<li style="border-style:solid;border-width: thin;border-color:#e3e3e3;">' + msg.username + '</li>' );
+            });
+        });
+    </script>
+{% endblock %}
+
