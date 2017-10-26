@@ -1,3 +1,0 @@
-http://localhost/exercise/part2
-http://localhost/exercise/part3
-http://localhost/exercise/part7

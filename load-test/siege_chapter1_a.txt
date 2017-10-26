@@ -1,2 +1,0 @@
-http://localhost/chapter1/read
-http://192.168.0.201/chapter1/read
