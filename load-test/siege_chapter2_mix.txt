@@ -1,2 +1,2 @@
-http://localhost/chapter1/timeline
+http://localhost/chapter2/timeline
 http://localhost/chapter1/write POST message=server1-efgh01234567890123456789012345678901234567890123456789012345678901234567890123456789

@@ -1,20 +1,46 @@
 <?php
 
-$app->get('/chapter2',function($request,$response,$args) {
-    $req = $request->getQueryParams();
-    $sql = 'select * from messages where user_id = ?';
-    $con = $this->get('pdo');
-    $sth = $con->prepare($sql);
-    $sth->execute(array($req['user_id']));
-    $results = $sth->fetchAll();
-    return $this->view->render($response,'chapter2.twig',['messages' => $results]);
-});
+$app->get('/chapter2/timeline',function($request,$response,$args) {
 
-$app->post('/chapter2',function($request,$response,$args) {
-    $req = $request->getParsedBody();
-    $sql = 'insert into messages values(null,?,?,?,now(),now())';
     $con = $this->get('pdo');
+
+    $user_id = mt_rand(1,1000000);
+
+    // SQL
+    $sql = 'select name from users where id = ?';
     $sth = $con->prepare($sql);
-    $sth->execute( array( $req['user_id'],$req['title'],$req['message']));
-    return $this->view->redirect('/chapter2?user_id='.$req['user_id']);
+    $sth->bindValue('1',$user_id, PDO::PARAM_INT);
+    $sth->execute();
+    $result = $sth->fetch(PDO::FETCH_BOTH);
+
+    // SQL
+    $sql = 'select count(*) as count from follows where user_id = ?';
+    $sth = $con->prepare($sql);
+    $sth->bindValue('1',$user_id, PDO::PARAM_INT);
+    $sth->execute();
+    $follow_count = $sth->fetch(PDO::FETCH_BOTH);
+
+    // SQL
+    $sql = 'select count(*) as count from messages where user_id = ?';
+    $sth = $con->prepare($sql);
+    $sth->bindValue('1',$user_id, PDO::PARAM_INT);
+    $sth->execute();
+    $message_count = $sth->fetch(PDO::FETCH_BOTH);
+
+    // SQL
+    $sql = 'select user_id,message,created_at from messages where user_id in ( select follow_user_id from follows where user_id = ?) order by created_at desc limit 10';
+    //$sql = 'select user_id,message,created_at from (select user_id,message,created_at from messages where user_id in ( select follow_user_id from follows where user_id = ?) union select user_id,message,created_at from messages where user_id = ? ) a order by created_at desc limit 20';
+    $sth = $con->prepare($sql);
+    $sth->bindValue(1,$user_id, PDO::PARAM_INT);
+    //$sth->bindValue(2,$user_id, PDO::PARAM_INT);
+    $sth->execute();
+    $results = $sth->fetchAll();
+
+    return $this->view->render($response,'chapter1.twig',
+        [
+        'user' => $result['name'],
+        'message_count' => $message_count['count'],
+        'follow' => $follow_count['count'],
+        'message_line' => $results
+        ]);
 });
