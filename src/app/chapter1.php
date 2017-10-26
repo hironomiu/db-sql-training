@@ -28,7 +28,7 @@ $app->get('/chapter1/read',function($request,$response,$args) {
     $message_count = $sth->fetch(PDO::FETCH_BOTH);
 
     // SQL
-    $sql = 'select message from messages where user_id = ?';
+    $sql = 'select message from messages where user_id = ? order by created_at limit 20';
     $sth = $con->prepare($sql);
     $sth->bindValue('1',$user_id, PDO::PARAM_INT);
     $sth->execute();
@@ -100,8 +100,10 @@ $app->get('/chapter1/timeline',function($request,$response,$args) {
 
     // SQL
     $sql = 'select user_id,message,created_at from messages where user_id in ( select follow_user_id from follows where user_id = ?) order by created_at desc limit 10';
+    //$sql = 'select user_id,message,created_at from (select user_id,message,created_at from messages where user_id in ( select follow_user_id from follows where user_id = ?) union select user_id,message,created_at from messages where user_id = ? ) a order by created_at desc limit 20';
     $sth = $con->prepare($sql);
-    $sth->bindValue('1',$user_id, PDO::PARAM_INT);
+    $sth->bindValue(1,$user_id, PDO::PARAM_INT);
+    //$sth->bindValue(2,$user_id, PDO::PARAM_INT);
     $sth->execute();
     $results = $sth->fetchAll();
 
