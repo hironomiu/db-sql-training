@@ -1,5 +1,10 @@
 <?php
 
+$app->get('/',function ($request, $response, $args) {
+    return "hello!";
+});
+
+
 $app->get('/chapter1/read',function($request,$response,$args) {
 
     $con = $this->get('pdo');
