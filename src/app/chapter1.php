@@ -33,7 +33,7 @@ $app->get('/chapter1/read',function($request,$response,$args) {
     $message_count = $sth->fetch(PDO::FETCH_BOTH);
 
     // SQL
-    $sql = 'select message from messages where user_id = ? order by created_at limit 20';
+    $sql = 'select message from messages where user_id = ? order by created_at desc limit 20';
     $sth = $con->prepare($sql);
     $sth->bindValue('1',$user_id, PDO::PARAM_INT);
     $sth->execute();
