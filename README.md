@@ -9,6 +9,9 @@
 $ make install
 ```
 
+## トレーニング
+[documents](https://github.com/hironomiu/db-sql-training/tree/master/documents)配下にDB-SQLのトレーニングを行うMDがあります。こちらのMDを挑戦してみましょう。
+
 ## tips
 ### DB周りの接続設定
 app/config.phpにDB接続(MySQL,Memcached)の設定をすること
@@ -24,3 +27,5 @@ $ HOST=xxx.xxx.xxx.xxx PORT=xxxx make server
 
 ### cacheディレクトリのパーミッション
 src/cacheはWebサーバが書き込み可能な状態にすること
+
+
