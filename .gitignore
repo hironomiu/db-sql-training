@@ -5,5 +5,6 @@ vendor
 node_modules
 public_html/bower_components
 src/config.php
-ddl/backup.dump.gz
+ddl/
+cache/
 src/cache/*/
