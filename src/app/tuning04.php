@@ -21,7 +21,7 @@ $app->get('/tuning04',function($request,$response,$args) {
     $result = $sth->fetch(PDO::FETCH_BOTH);
     $cnt = $result['cnt'];
     if ($cnt === 0){
-        $a["message"] = "キャンペーン期間外";
+        $message_line["message"] = "キャンペーン期間外";
     } 
     return $this->view->render($response,'chapter1.twig',
         [
