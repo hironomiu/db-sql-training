@@ -21,9 +21,9 @@
 
 {% block content%}
 {%if message_line %}
-  <ul>
+  <ul class="list-group">
   {% for message in message_line %}
-    <li> {{ message.message }} ({{ message.created_at }})</li>
+    <li class="list-group-item" style="word-wrap: break-word;"> {{ message.message }} ({{ message.created_at }})</li>
   {% endfor %}
   </ul>
 {% endif %}
