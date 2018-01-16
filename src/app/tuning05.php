@@ -4,7 +4,7 @@ $app->get('/tuning05',function($request,$response,$args) {
     $con = $this->get('pdo');
 
     // SQL
-    $sql = 'select title,name from users order by rand() limit 1';
+    $sql = 'select name,birthday from users order by rand() limit 1';
     $sth = $con->prepare($sql);
     $sth->execute();
     $username = $sth->fetch(PDO::FETCH_BOTH);
