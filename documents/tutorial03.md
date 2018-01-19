@@ -80,6 +80,25 @@ MySQLの設定後、再起動が必要です(rootで実施)
 
 ----
 
+### 追加Mission 接続先の確認と設定
+チュートリアルにて呼び出していたDBの接続先の確認、サーバが2台ある場合接続先の変更などを行いましょう。サーバが2台の場合は負荷サーバ、DBサーバと役割を分けて、ここまでのMissionを改めて行いましょう。
+
+以下demouserで実行
+
+```
+$ cd ~/web-performance-tuning/src
+$ cat config.php
+<?php
+$host = 'localhost';
+$memcachedConfig['port'] = 11211;
+$mysqldConfig['database'] = 'groupwork';
+$mysqldConfig['user'] = 'demouser';
+$mysqldConfig['password'] = 'demopass';
+
+```
+サーバが2台用意されてる場合は、config.phpの`$host`を2台目のサーバのローカルIP(192.168.0で始まるIP)に書き換えましょう。
+----
+
 ### 追加Mission 同時実行数の上限
 リクエストに対して快適なレスポンスを返しながら「200 OK」を維持し続けられる同時実行数(-c)の上限を考察(もしくは検証)しましょう
 
