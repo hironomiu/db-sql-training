@@ -1,6 +1,5 @@
 <?php
 $host = 'localhost';
-$memcachedConfig['port'] = 11211;
 $mysqldConfig['database'] = 'groupwork';
 $mysqldConfig['user'] = 'demouser';
 $mysqldConfig['password'] = 'demopass';

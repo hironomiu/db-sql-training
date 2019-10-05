@@ -1,6 +1,6 @@
 {
     "require":{
-        "slim/slim":"*",
+        "slim/slim":"3.*",
         "slim/twig-view":"*"
     },
     "autoload":{

@@ -11,7 +11,6 @@ DB_SCHEMA?=groupwork
 HOST?=localhost
 PORT?=8888
 NPM?=$(shell which npm)
-BOWER?=$(shell pwd)/node_modules/bower/bin/bower
 
 php-setup:
 	$(PHP) -r "eval('?>'.file_get_contents('https://getcomposer.org/installer'));"
@@ -21,20 +20,13 @@ config-setup:
 	$(CP) src/config.php.template src/config.php
 	$(CHMOD) 777 src/cache
 
-front-setup:
-	$(NPM) install
-	$(BOWER) --allow-root install
-
 db-setup:
 	$(ZCAT) ddl/users.dump.gz | $(MYSQL) -u$(DB_USER) -p$(DB_PASS) $(DB_SCHEMA)
 	$(ZCAT) ddl/messages.dump.gz | $(MYSQL) -u$(DB_USER) -p$(DB_PASS) $(DB_SCHEMA)
 	$(ZCAT) ddl/follows.dump.gz | $(MYSQL) -u$(DB_USER) -p$(DB_PASS) $(DB_SCHEMA)
 	$(ZCAT) ddl/user_birth_month_count.dump.gz | $(MYSQL) -u$(DB_USER) -p$(DB_PASS) $(DB_SCHEMA)
 
-memcache-setup:
-	$(PHP) src/setup/setup_memcache.php
-
-install: php-setup config-setup front-setup db-setup memcache-setup
+install: php-setup config-setup
 
 server:
 	$(PHP) -S $(HOST):$(PORT) -t ./public_html

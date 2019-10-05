@@ -1,9 +1,13 @@
 <?php
 
 $app->get('/',function ($request, $response, $args) {
-    return "hello!";
+    return "piyo hello!!!";
 });
 
+
+$app->get('/hoge',function ($request, $response, $args) {
+    return "hoge hello!!!";
+});
 
 $app->get('/chapter1/read',function($request,$response,$args) {
 
