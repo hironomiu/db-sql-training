@@ -1,8 +1,0 @@
-{
-  "name": "web-performance-tuning",
-  "description": "scripts for Application",
-  "dependencies": {
-    "jquery": "*",
-    "bootstrap": "*"
-  }
-}
